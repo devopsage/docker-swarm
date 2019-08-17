@@ -1,0 +1,25 @@
+version: '3.3'
+services:
+  postgres:
+    image: parrotstream/postgres:10.5
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=kong
+      - POSTGRES_USER=kong
+      - POSTGRES_PASSWORD=postgres
+
+    privileged: true
+    volumes:
+      - type: volume
+        source: postgres-data
+        target: /var/lib/postgresql/data
+
+volumes:
+  postgres-data:
