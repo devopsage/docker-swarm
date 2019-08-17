@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres:
+    image: parrotstream/postgres:10.5
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=kong
+      - POSTGRES_USER=kong
+      - POSTGRES_PASSWORD=postgres
+
+    privileged: true
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
